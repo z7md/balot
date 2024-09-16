@@ -29,21 +29,22 @@ export default function App() {
     checkWinner()
   }
   function checkWinner() {
-    console.log(totalTeam2)
+    if((totalTeam1 + parseInt(currentTeam1) >= 152) && (totalTeam1 + parseInt(currentTeam1) ==  =totalTeam2 + parseInt(currentTeam2))){
+      if(parseInt(currentTeam1) > parseInt(currentTeam2)){
+        setIsThereWinner(true)
+        setWinner("لهم")
+      }else{
+        setIsThereWinner(true)
+        setWinner("لنا")
+      }
+    }
     if (totalTeam1 + parseInt(currentTeam1) >= 152) {
-      setTotalTeam1(0)
-      setTotalTeam2(0)
-      setAllTeam1([])
-      setAllTeam2([])
-      setIsThereWinner(true)
-      setWinner("لنا")
-    } else if (totalTeam2 + parseInt(currentTeam2) >= 152) {
-      setTotalTeam2(0)
-      setTotalTeam1(0)
-      setAllTeam1([])
-      setAllTeam2([])
       setIsThereWinner(true)
       setWinner("لهم")
+    } else if (totalTeam2 + parseInt(currentTeam2) >= 152) {
+
+      setIsThereWinner(true)
+      setWinner("لنا")
     }
   }
   function handleWinner() {
@@ -58,18 +59,27 @@ export default function App() {
       setTotalTeam2(totalTeam2 - allTeam2[allTeam2.length - 1]);
         setAllTeam2(allTeam2.slice(0,-1))
     }
-
+  }
+  function restart(x){
+    setIsThereWinner(false)
+    setTotalTeam1(0)
+    setTotalTeam2(0)
+    setAllTeam1([])
+    setAllTeam2([])
   }
 
   return (
     !isTherewinner ? (
       <div className="flex flex-col w-[400px] m-auto  items-center text-3xl p-6 gap-[50px] bg-slate-400 h-screen rounded-md">
+        <div className="flex bg-white rounded-lg p-2 hover:cursor-pointer hover:bg-gray-300 items-end justify-end" onClick={restart}>
+         <span> لعبة جديدة </span>
+        </div>
         <div className="flex gap-[100px]">
           <span>
-            لنا
+            لهم
           </span>
           <span>
-            لهم
+            لنا
           </span>
         </div>
         <div className="flex gap-[100px]">
@@ -83,29 +93,29 @@ export default function App() {
         <div className="flex gap-[20px] justify-center items-center">
           <input className="basis-[42.5%] border border-black w-[50px] flex-1" type="number" onChange={e => setCurrentTeam1(e.target.value)} id="input1">
           </input>
-          <FaArrowRotateRight className="basis-[50%] hover:cursor-pointer" onClick={retreat}/>
+          <FaArrowRotateRight className="basis-[50%] hover:cursor-pointer hover:opacity-35" onClick={retreat}/>
           <input className="basis-[42.5%] border border-black w-[50px] flex-1" type="number" onChange={e => setCurrentTeam2(e.target.value)} id="input2">
           </input>
         </div>
         <div>
-          <button className="bg-white text-black p-2 rounded-md flex-1" onClick={handleCalc} id="button1">
+          <button className="bg-white text-black p-2 rounded-md flex-1 hover:bg-gray-300" onClick={handleCalc} id="button1">
             أحسب
           </button>
         </div>
         <div className="flex w-full justify-evenly">
           <div className="flex flex-col gap-4">
-            {allTeam1.map((item)=>{
+            {allTeam1.map((item , index)=>{
             return (
-              <span>
+              <span key={index}>
                 {item}
               </span>
             )
             })}
           </div>
           <div className="flex flex-col gap-4">
-          {allTeam2.map((item)=>{
+          {allTeam2.map((item , index)=>{
             return (
-              <span>
+              <span key={index}>
                 {item}
               </span>
             )
@@ -121,6 +131,9 @@ export default function App() {
       <button onClick={handleWinner} className="bg-white p-2 rounded-md">
         ارجع للحاسبة
       </button>
+      <div className="flex bg-white rounded-lg p-2 hover:cursor-pointer hover:bg-gray-300 items-end justify-end" onClick={restart}>
+         <span> لعبة جديدة </span>
+        </div>
     </div>
   )
 }
