@@ -29,7 +29,7 @@ export default function App() {
     checkWinner()
   }
   function checkWinner() {
-    if((totalTeam1 + parseInt(currentTeam1) >= 152) && (totalTeam1 + parseInt(currentTeam1) ==  =totalTeam2 + parseInt(currentTeam2))){
+    if((totalTeam1 + parseInt(currentTeam1) >= 152) && (totalTeam1 + parseInt(currentTeam1) ===totalTeam2 + parseInt(currentTeam2))){
       if(parseInt(currentTeam1) > parseInt(currentTeam2)){
         setIsThereWinner(true)
         setWinner("لهم")
