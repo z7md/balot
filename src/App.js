@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { FaArrowRotateRight } from "react-icons/fa6";
 
 export default function App() {
   const [totalTeam1, setTotalTeam1] = useState(0);
@@ -20,14 +21,15 @@ export default function App() {
     setTotalTeam2(totalTeam2 + parseInt(currentTeam2));
     setAllTeam1(oldAllTeam1 => [...oldAllTeam1,parseInt(currentTeam1)] );
     setAllTeam2(oldAllTeam2 => [...oldAllTeam2,parseInt(currentTeam2)] );
+    input1.value = 0;
+    input2.value = 0;
+    setCurrentTeam1(0)
+    setCurrentTeam2(0)
 
-    setCurrentTeam1(0)
-    setCurrentTeam1(0)
-    input1.value = "";
-    input2.value = "";
     checkWinner()
   }
   function checkWinner() {
+    console.log(totalTeam2)
     if (totalTeam1 + parseInt(currentTeam1) >= 152) {
       setTotalTeam1(0)
       setTotalTeam2(0)
@@ -46,6 +48,17 @@ export default function App() {
   }
   function handleWinner() {
     setIsThereWinner(false)
+  }
+  function retreat(){
+    if (allTeam1.length > 0) {
+      setTotalTeam1(totalTeam1 - allTeam1[allTeam1.length - 1])
+      setAllTeam1(allTeam1.slice(0,-1))
+    }
+    if (allTeam2.length > 0) {
+      setTotalTeam2(totalTeam2 - allTeam2[allTeam2.length - 1]);
+        setAllTeam2(allTeam2.slice(0,-1))
+    }
+
   }
 
   return (
@@ -67,14 +80,15 @@ export default function App() {
             {totalTeam2}
           </span>
         </div>
-        <div className="flex gap-[100px]">
-          <input className="border border-black w-[50px]" type="number" onChange={e => setCurrentTeam1(e.target.value)} id="input1">
+        <div className="flex gap-[20px] justify-center items-center">
+          <input className="basis-[42.5%] border border-black w-[50px] flex-1" type="number" onChange={e => setCurrentTeam1(e.target.value)} id="input1">
           </input>
-          <input className="border border-black w-[50px]" type="number" onChange={e => setCurrentTeam2(e.target.value)} id="input2">
+          <FaArrowRotateRight className="basis-[50%] hover:cursor-pointer" onClick={retreat}/>
+          <input className="basis-[42.5%] border border-black w-[50px] flex-1" type="number" onChange={e => setCurrentTeam2(e.target.value)} id="input2">
           </input>
         </div>
         <div>
-          <button className="bg-white text-black p-2 rounded-md" onClick={handleCalc} id="button1">
+          <button className="bg-white text-black p-2 rounded-md flex-1" onClick={handleCalc} id="button1">
             أحسب
           </button>
         </div>
