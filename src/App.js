@@ -14,13 +14,18 @@ export default function App() {
   function handleCalc() {
     let input1 = document.getElementById("input1");
     let input2 = document.getElementById("input2");
-    if( (input1.value == 0 && input2.value ==0)) return;
-    if((parseInt(input2.value))<0 || (parseInt(input1.value))<0) return;
+    if ((input1.value === 0 && input2.value === 0)) return;
+    if ((parseInt(input2.value)) < 0 || (parseInt(input1.value)) < 0) return;
     checkWinner()
+    if (isNaN(parseInt(currentTeam1)) || isNaN(parseInt(currentTeam2)) ) {
+      input1.value = "";
+      input2.value = "";
+      return ;
+  }
     setTotalTeam1(totalTeam1 + parseInt(currentTeam1));
     setTotalTeam2(totalTeam2 + parseInt(currentTeam2));
-    setAllTeam1(oldAllTeam1 => [...oldAllTeam1,parseInt(currentTeam1)] );
-    setAllTeam2(oldAllTeam2 => [...oldAllTeam2,parseInt(currentTeam2)] );
+    setAllTeam1(oldAllTeam1 => [...oldAllTeam1, parseInt(currentTeam1)]);
+    setAllTeam2(oldAllTeam2 => [...oldAllTeam2, parseInt(currentTeam2)]);
     input1.value = 0;
     input2.value = 0;
     setCurrentTeam1(0)
@@ -29,11 +34,11 @@ export default function App() {
     checkWinner()
   }
   function checkWinner() {
-    if((totalTeam1 + parseInt(currentTeam1) >= 152) && (totalTeam1 + parseInt(currentTeam1) ===totalTeam2 + parseInt(currentTeam2))){
-      if(parseInt(currentTeam1) > parseInt(currentTeam2)){
+    if ((totalTeam1 + parseInt(currentTeam1) >= 152) && ((totalTeam1 + parseInt(currentTeam1) === totalTeam2 + parseInt(currentTeam2)))) {
+      if (parseInt(currentTeam1) > parseInt(currentTeam2)) {
         setIsThereWinner(true)
         setWinner("لهم")
-      }else{
+      } else {
         setIsThereWinner(true)
         setWinner("لنا")
       }
@@ -50,29 +55,34 @@ export default function App() {
   function handleWinner() {
     setIsThereWinner(false)
   }
-  function retreat(){
+  function retreat() {
     if (allTeam1.length > 0) {
       setTotalTeam1(totalTeam1 - allTeam1[allTeam1.length - 1])
-      setAllTeam1(allTeam1.slice(0,-1))
+      setAllTeam1(allTeam1.slice(0, -1))
     }
     if (allTeam2.length > 0) {
       setTotalTeam2(totalTeam2 - allTeam2[allTeam2.length - 1]);
-        setAllTeam2(allTeam2.slice(0,-1))
+      setAllTeam2(allTeam2.slice(0, -1))
     }
+    let input1 = document.getElementById("input1");
+    let input2 = document.getElementById("input2");
+    input1.value = "";
+    input2.value = "";
   }
-  function restart(x){
+  function restart() {
     setIsThereWinner(false)
     setTotalTeam1(0)
     setTotalTeam2(0)
     setAllTeam1([])
     setAllTeam2([])
+
   }
 
   return (
     !isTherewinner ? (
       <div className="flex flex-col w-[400px] m-auto  items-center text-3xl p-6 gap-[50px] bg-slate-400 h-screen rounded-md">
         <div className="flex bg-white rounded-lg p-2 hover:cursor-pointer hover:bg-gray-300 items-end justify-end" onClick={restart}>
-         <span> لعبة جديدة </span>
+          <span> لعبة جديدة </span>
         </div>
         <div className="flex gap-[100px]">
           <span>
@@ -91,10 +101,10 @@ export default function App() {
           </span>
         </div>
         <div className="flex gap-[20px] justify-center items-center">
-          <input className="basis-[42.5%] border border-black w-[50px] flex-1" type="number" onChange={e => setCurrentTeam1(e.target.value)} id="input1">
+          <input className="basis-[42.5%] border border-black w-[50px] flex-1 px-8 p-6" type="text" onChange={e => setCurrentTeam1(e.target.value)} id="input1">
           </input>
-          <FaArrowRotateRight className="basis-[50%] hover:cursor-pointer hover:opacity-35" onClick={retreat}/>
-          <input className="basis-[42.5%] border border-black w-[50px] flex-1" type="number" onChange={e => setCurrentTeam2(e.target.value)} id="input2">
+          <FaArrowRotateRight className="basis-[50%] hover:cursor-pointer hover:opacity-35" onClick={retreat} />
+          <input className="basis-[42.5%] border border-black w-[50px] flex-1 px-8 p-6" type="text" onChange={e => setCurrentTeam2(e.target.value)} id="input2">
           </input>
         </div>
         <div>
@@ -104,23 +114,23 @@ export default function App() {
         </div>
         <div className="flex w-full justify-evenly">
           <div className="flex flex-col gap-4">
-            {allTeam1.map((item , index)=>{
-            return (
-              <span key={index}>
-                {item}
-              </span>
-            )
+            {allTeam1.map((item, index) => {
+              return (
+                <span key={index}>
+                  {item}
+                </span>
+              )
             })}
           </div>
           <div className="flex flex-col gap-4">
-          {allTeam2.map((item , index)=>{
-            return (
-              <span key={index}>
-                {item}
-              </span>
-            )
+            {allTeam2.map((item, index) => {
+              return (
+                <span key={index}>
+                  {item}
+                </span>
+              )
             })}
-          
+
           </div>
         </div>
       </div>
@@ -132,8 +142,8 @@ export default function App() {
         ارجع للحاسبة
       </button>
       <div className="flex bg-white rounded-lg p-2 hover:cursor-pointer hover:bg-gray-300 items-end justify-end" onClick={restart}>
-         <span> لعبة جديدة </span>
-        </div>
+        <span> لعبة جديدة </span>
+      </div>
     </div>
   )
 }
