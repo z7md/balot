@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/balot/static/css/main.a26aa821.css",
+    "main.js": "/balot/static/js/main.ee78a9c9.js",
+    "static/js/488.b5fb6f0b.chunk.js": "/balot/static/js/488.b5fb6f0b.chunk.js",
+    "index.html": "/balot/index.html",
+    "main.a26aa821.css.map": "/balot/static/css/main.a26aa821.css.map",
+    "main.ee78a9c9.js.map": "/balot/static/js/main.ee78a9c9.js.map",
+    "488.b5fb6f0b.chunk.js.map": "/balot/static/js/488.b5fb6f0b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a26aa821.css",
+    "static/js/main.ee78a9c9.js"
+  ]
+}
